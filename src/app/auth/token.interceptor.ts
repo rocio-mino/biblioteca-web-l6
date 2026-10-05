@@ -13,6 +13,7 @@ export const tokenInterceptor: HttpInterceptorFn = (req, next) => {
   return from(fetchAuthSession()).pipe(
     switchMap(({ tokens }) => {
       const jwt = tokens?.accessToken?.toString();
+      console.log('ACCESS TOKEN:', jwt);
       return next(
         jwt ? req.clone({ setHeaders: { Authorization: `Bearer ${jwt}` } }) : req,
       );
